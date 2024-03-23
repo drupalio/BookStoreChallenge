@@ -271,3 +271,20 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.idea/codeStyles/codeStyleConfig.xml
+.mvn/wrapper/maven-wrapper.properties
+data/bookstore.mv.db
+data/bookstore.trace.db
+target/classes/application.yaml
+target/classes/db/migration/V1__create_base_schema.sql
+target/classes/db/migration/V2__insert_users.sql
+target/classes/db/migration/V3__insert_genders.sql
+target/classes/db/migration/V4__insert_books.sql
+target/classes/db/migration/V5__insert_inventory.sql
+target/classes/db/migration/V6__insert_loans.sql
+target/classes/db/migration/V7__insert_rating.sql
+target/classes/ximple.txt
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
