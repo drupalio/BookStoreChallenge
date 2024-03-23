@@ -15,4 +15,9 @@ public record UserRecord(
         @JsonProperty("name") String name,
         @JsonProperty("lastName") String lastName,
         @JsonProperty("email") String email
-) {}
+) {
+        @JsonProperty("id")
+        public Long getId(){
+                return this.id.get();
+        }
+}

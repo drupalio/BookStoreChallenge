@@ -16,4 +16,9 @@ public record RatingRecord(
         @JsonProperty("book") BookRecord book,
         @JsonProperty("stars") int stars,
         @JsonProperty("comment") String comment
-) {}
+) {
+        @JsonProperty("id")
+        public Long getId(){
+                return this.id.get();
+        }
+}

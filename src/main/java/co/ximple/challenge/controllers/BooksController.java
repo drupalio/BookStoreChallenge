@@ -58,8 +58,8 @@ public record BooksController (BooksService service){
     @ApiResponse(responseCode = "200", description = "Reviews retrieved successfully",
             content = @Content(mediaType = "application/json",
                     array = @ArraySchema(schema = @Schema(implementation = RatingRecord.class))))
-    @GetMapping("/reviews/{id_book}")
-    List<RatingRecord> listReviews(@PathVariable("id_book") String id_book){
+    @GetMapping("/reviews/")
+    List<RatingRecord> listReviews(@RequestParam(value = "id_book",required = false) Long id_book){
         return service.listReviews(id_book);
     }
 

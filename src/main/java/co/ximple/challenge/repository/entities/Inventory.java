@@ -8,18 +8,28 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Inventory")
-@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
+    @NonNull
     @JoinColumn(name = "id_book")
     private Book book;
 
-    private boolean avalible;
+    @NonNull
+    private Boolean avalible;
 }
