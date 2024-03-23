@@ -10,8 +10,8 @@ import java.util.List;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorResponse> errorResponseNotFoundException(NotFoundException notFoundException) {
+    @ExceptionHandler(CustomDefaultException.class)
+    public ResponseEntity<ErrorResponse> errorResponseNotFoundException(CustomDefaultException notFoundException) {
         ErrorResponse errorResponse = new ErrorResponse(notFoundException.getMessage(), List.of());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }

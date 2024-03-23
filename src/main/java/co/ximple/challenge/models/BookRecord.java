@@ -15,4 +15,9 @@ public record BookRecord(
         @JsonProperty("title") String title,
         @JsonProperty("author") String author,
         @JsonProperty("gender") GenderRecord gender
-) {}
+) {
+        @JsonProperty("id")
+        public long getId(){
+                return this.id.get();
+        }
+}

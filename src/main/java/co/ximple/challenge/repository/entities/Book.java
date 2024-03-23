@@ -7,21 +7,35 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Books")
-@Data
-public class Book {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class Book implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private String title;
 
+    @NonNull
     private String author;
 
     @ManyToOne
     @JoinColumn(name = "id_gender")
+    @NonNull
     private Gender gender;
 }
