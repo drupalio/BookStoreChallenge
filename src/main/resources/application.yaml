@@ -1,0 +1,33 @@
+spring:
+  banner:
+    location: ximple.txt
+  application:
+    name: BookStore
+  datasource:
+    username: admin
+    url: jdbc:h2:file:./data/bookstore;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    password: password
+  h2:
+    console:
+      enabled: 'true'
+      settings:
+        web-allow-others: 'false'
+      path: /h2-console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  flyway:
+    baseline-on-migrate: true
+    enabled: true
+  logging:
+    level:
+      sql: info
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: ''

@@ -1,0 +1,12 @@
+INSERT INTO Genders (name) VALUES ('Fiction');
+INSERT INTO Genders (name) VALUES ('Non-fiction');
+INSERT INTO Genders (name) VALUES ('Science fiction');
+INSERT INTO Genders (name) VALUES ('Fantasy');
+INSERT INTO Genders (name) VALUES ('Mystery');
+INSERT INTO Genders (name) VALUES ('Romance');
+INSERT INTO Genders (name) VALUES ('Horror');
+INSERT INTO Genders (name) VALUES ('Thriller');
+INSERT INTO Genders (name) VALUES ('Adventure');
+INSERT INTO Genders (name) VALUES ('Historical');
+INSERT INTO Genders (name) VALUES ('Biography');
+INSERT INTO Genders (name) VALUES ('Autobiography');
