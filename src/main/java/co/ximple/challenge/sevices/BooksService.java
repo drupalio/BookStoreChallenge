@@ -1,9 +1,8 @@
 package co.ximple.challenge.sevices;
 
-import co.ximple.challenge.models.Book;
-import co.ximple.challenge.models.Loan;
-import co.ximple.challenge.models.Rating;
-import co.ximple.challenge.models.Review;
+import co.ximple.challenge.models.BookRecord;
+import co.ximple.challenge.models.LoanRecord;
+import co.ximple.challenge.models.RatingRecord;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -12,27 +11,27 @@ import java.util.List;
 @Service
 public class BooksService {
     @Cacheable(value = "cache", key = "'book_id_' + #id_book")
-    public List<Book> searchBooks(String id_book) {
+    public List<BookRecord> searchBooks(String id_book) {
         return null;
     }
 
 
-    public Loan requestLoan(Loan loan) {
+    public LoanRecord requestLoan(LoanRecord loan) {
         return null;
     }
 
 
-    public Review sendReview(Review review) {
+    public RatingRecord sendReview(RatingRecord review) {
         return null;
     }
 
 
     @Cacheable(value = "cache", key = "'review_id_' + #id_book")
-    public List<Review> listReviews(String id_book) {
+    public List<RatingRecord> listReviews(String id_book) {
         return null;
     }
 
-    public Rating rateBook(Rating rating) {
+    public RatingRecord rateBook(RatingRecord rating) {
         return null;
     }
 }

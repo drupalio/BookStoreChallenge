@@ -1,3 +1,5 @@
+server:
+  forward-headers-strategy: framework
 spring:
   cache:
     type: redis
@@ -37,3 +39,15 @@ management:
       exposure:
         include: '*'
         exclude: ''
+config:
+  api:
+    base-path: /api/
+
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    enabled: true
+    disable-swagger-default-url: true
+  api-docs:
+    path: /api
+    enabled: true

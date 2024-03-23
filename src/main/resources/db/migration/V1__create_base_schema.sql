@@ -25,7 +25,7 @@ CREATE TABLE Books (
 CREATE TABLE Inventory (
                            id BIGINT AUTO_INCREMENT PRIMARY KEY,
                            id_book BIGINT,
-                           disponible BOOLEAN,
+                           avalible BOOLEAN,
                            FOREIGN KEY (id_book) REFERENCES Books(id)
 );
 
