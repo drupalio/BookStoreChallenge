@@ -1,4 +1,10 @@
 spring:
+  cache:
+    type: redis
+    host: localhost
+    port: 6379
+    redis:
+      time-to-live: 60000
   banner:
     location: ximple.txt
   application:
