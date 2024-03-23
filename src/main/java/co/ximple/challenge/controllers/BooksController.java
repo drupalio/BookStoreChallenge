@@ -45,14 +45,6 @@ public record BooksController (BooksService service){
         return service.requestLoan(loan);
     }
 
-    @Operation(summary = "Send review", description = "Send a review for a book")
-    @ApiResponse(responseCode = "200", description = "Review sent successfully",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = RatingRecord.class)))
-    @PostMapping("/reviews")
-    RatingRecord sendReview(@RequestBody RatingRecord review){
-        return service.sendReview(review);
-    }
 
     @Operation(summary = "List reviews by book ID", description = "Get reviews for a book by its ID")
     @ApiResponse(responseCode = "200", description = "Reviews retrieved successfully",

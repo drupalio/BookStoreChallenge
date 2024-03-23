@@ -43,13 +43,6 @@ public class BooksService {
         return null;
     }
 
-
-    public RatingRecord sendReview(RatingRecord review) {
-        return null;
-    }
-
-
-
     public List<RatingRecord> listReviews(Long id_book) {
         return id_book == null ?
                 ratingRepository.findById(id_book).stream()
@@ -61,6 +54,6 @@ public class BooksService {
     }
 
     public RatingRecord rateBook(RatingRecord rating) {
-        return null;
+        return  ratingMapper.entityToRecord(ratingRepository.save(ratingMapper.recordToEntity(rating)));
     }
 }
