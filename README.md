@@ -102,10 +102,10 @@ where the first # is the major version of migration and the secon one # is for a
 ## Database Model
 ![demol](demo.png)
 Example user:
-  ```html
+
     Email: john.doe@example.com
     Password: password
-    ```
+
 You could choose whichever user you want inserted in the V2__insert_users.sql
 ## Built With
 
