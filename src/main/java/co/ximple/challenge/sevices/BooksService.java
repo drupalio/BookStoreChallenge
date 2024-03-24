@@ -13,9 +13,7 @@ import co.ximple.challenge.repository.BooksRepository;
 import co.ximple.challenge.repository.InventoryRepository;
 import co.ximple.challenge.repository.LoanRepository;
 import co.ximple.challenge.repository.RatingRepository;
-import co.ximple.challenge.repository.entities.Inventory;
 import co.ximple.challenge.repository.entities.Loan;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
