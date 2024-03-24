@@ -106,7 +106,8 @@ Example user:
     Email: john.doe@example.com
     Password: password
 
-url : localhost
+### Demo URL  
+    http://localhost/
 
 You could choose whichever user you want inserted in the V2__insert_users.sql
 ## Built With
