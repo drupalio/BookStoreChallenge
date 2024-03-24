@@ -1,0 +1,246 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">Hola <span id="userInformation"></span> <i class="bi bi-emoji-smile"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    My Loans   
+                </div>
+                <div class="card-body" id="content">
+
+                </div>
+                <hr>
+                <div class="card-body" id="panel">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    $('#userInformation').text(window.bookstore.userInformation.name + "  " + window.bookstore.userInformation.lastName);
+
+    function fetchLoanData() {
+        $.ajax({
+            url: 'http://localhost:8080/api/books/loan/' + window.bookstore.userInformation.id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                // Clear previous data
+                $('#content').empty();
+
+                // Build table HTML
+                var tableHTML = '<table class="table">';
+                $.each(response, function(index, loan) {
+                    var returnButton = '';
+                    var loanReturnDate = '';
+                    if (!loan.returnDate) {
+                        loanReturnDate = "N/A";
+                        returnButton = '<button class="return-btn" value="' + loan.id +'" >Bring Back</button>';
+                    } else {
+                        loanReturnDate = moment(loan.returnDate).format("DD-MM-YY");
+                        returnButton = '<button class="rating-btn" value="' + loan.book.id +'" >Send Rewiew</button>';
+                    }
+                    tableHTML += '<tr><td><button class="review-btn" value="' + loan.book.id +'" >Read reviews</button><td><td>' + loan.book.title + ' by ' + loan.book.author + '</td><td>' + moment(loan.loanDate).format("MM-DD-YYYY") + '</td><td>' + loanReturnDate + '</td><td>' + returnButton + '</td></tr>';
+                });
+                tableHTML += '</table><hr><button class="list-btn">List books</button> ';
+
+                // Append table to container
+                $('#content').append(tableHTML);
+            },
+            error: function() {
+                alert("An error occurred while fetching loan information.");
+                location.reload();
+            }
+        });
+    }
+
+    fetchLoanData();
+
+    $(document).on('click', '.return-btn', function() {
+        var loanId = $(this).val();
+        $.ajax({
+            url: 'http://localhost:8080/api/books/loan/'+loanId,
+            type: 'PATCH',
+            dataType: 'json',
+            success: function(response) {
+                fetchLoanData();
+            },
+            error: function(xhr, status, error) {
+                alert("Something goes wrong, try it again later")
+            }
+        });
+        ;
+    });
+
+    $(document).on('click', '.review-btn', function() {
+    var bookId = $(this).val();
+    $.ajax({
+        url: 'http://localhost:8080/api/books/reviews/?id_book='+bookId,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            updateReviewPanel(response);
+        },
+        error: function(xhr, status, error) {
+            alert("Something went wrong, please try again later");
+        }
+        });
+    });
+
+    function updateReviewPanel(reviews) {
+        // Clear previous data
+        $('#panel').empty();
+
+        // Build table HTML
+        var tableHTML = '<table class="table"><tr><th>ID</th><th>Stars</th><th>Comment</th></tr>';
+        $.each(reviews, function(index, review) {
+            var starsHTML = '';
+            for (var i = 0; i < review.stars; i++) {
+                starsHTML += '⭐';
+            }
+            tableHTML += '<tr><td>' + review.id + '</td><td>' + starsHTML + '</td><td>' + review.comment + '</td></tr>';
+        });
+        tableHTML += '</table>';
+
+        // Append table to panel
+        $('#panel').append(tableHTML);
+    }
+
+    $(document).on('click', '.rating-btn', function() {
+        $('#panel').empty();
+        var formHTML = '' +
+    '<div class="mb-3">' +
+        '<label for="starsSelect" class="form-label">Stars</label>' +
+        '<select class="form-select" id="starsSelect" name="stars">' +
+            '<option value="1">1</option>' +
+            '<option value="2">2</option>' +
+            '<option value="3">3</option>' +
+            '<option value="4">4</option>' +
+            '<option value="5">5</option>' +
+        '</select>' +
+    '</div>' +
+    '<div class="mb-3">' +
+        '<label for="commentTextarea" class="form-label">Comment</label>' +
+        '<textarea class="form-control" id="commentTextarea" name="comment" rows="3">I recommend it</textarea>' +
+    '</div>' +
+    '<button  class="btn btn-primary btn-submit-review"  value="' + $(this).val() +'">Submit</button>';
+        $('#panel').html(formHTML);
+    });
+
+    $(document).on('click', '.btn-submit-review', function() {
+    var book = $(this).val();
+    var bookData;
+    
+    $.ajax({
+        url: 'http://localhost:8080/api/books/?id_book='+book,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            bookData = response;
+            sendRating(bookData);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error getting the backend information:', error);
+        }
+        });
+
+    });
+
+    function sendRating(bookData) {
+    var ratingData = {
+        "user": window.bookstore.userInformation,
+        "book": bookData[0],
+        "stars": $("#starsSelect").val(),
+        "comment": $("#commentTextarea").val()
+    };
+    $.ajax({
+        url: 'http://localhost:8080/api/books/ratings',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(ratingData), 
+        success: function(response) {
+            $('.review-btn').trigger('click', bookData[0].id);
+        },
+        error: function(xhr, status, error) {
+            alert('Error en la petición:', error);
+        }
+        });
+    }
+
+    $(document).on('click','.list-btn',function(){
+        $('#panel').empty();
+        $.ajax({
+        url: 'http://localhost:8080/api/books/',
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var tableHTML = '<table id="bookTable"><thead><tr><th>Title</th><th>Author</th><th>Gender</th><th>Action</th></tr></thead><tbody>';
+            $.each(response, function(index, book) {
+                tableHTML += '<tr><td>' + book.title + '</td><td>' + book.author + '</td><td>' + book.gender.name + '</td><td><button class="loan-btn" value="' + book.id + '">Loan</button></td></tr>';
+            });
+            tableHTML += '</tbody></table>';
+            $('#panel').replaceWith(tableHTML);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error en la petición:', error);
+        }
+         });
+    });
+
+    $(document).on('click', '.loan-btn', function() {
+        var bookId = $(this).val();
+        var bookData;
+
+        $.ajax({
+            url: 'http://localhost:8080/api/books/?id_book='+bookId,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                bookData = response;
+                sendLoan(bookData);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error getting the backend information:', error);
+            }
+            });
+
+    });
+
+    function sendLoan(bookData) {
+    var loanData = {
+        "user": window.bookstore.userInformation,
+        "book": bookData[0],
+        "loanDate":moment(this.date).format("YYYY-MM-DDTHH:mm:ss.SSSZ")
+    };
+    console.log(loanData);
+    $.ajax({
+        url: 'http://localhost:8080/api/books/loan',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(loanData), 
+        success: function(response) {
+            fetchLoanData();
+        },
+        error: function(xhr, status, error) {
+            alert('Error en la petición:', error);
+        }
+        });
+    }
+   
+});
+</script>

@@ -14,7 +14,7 @@ public record RatingRecord(
         @JsonProperty("id") Optional<Long> id,
         @JsonProperty("user") UserRecord user,
         @JsonProperty("book") BookRecord book,
-        @JsonProperty("stars") int stars,
+        @JsonProperty("stars") Integer stars,
         @JsonProperty("comment") String comment
 ) {
         @JsonProperty("id")
