@@ -44,6 +44,69 @@ These instructions will get you a copy of the project up and running on your loc
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Database Model
+![db-model](db-model.png)
+* When I designed the database, I did it with the following questions in mind:
+* Is it possible to know if there are pieces of books available?
+* Is it possible to know which user has a copy?
+* Is it possible for a book to receive a review?
+* Can we know how many books a user has on loan?
+
+Although the model can be further refined to achieve better performance and have superior quality in terms of indexes by using better properties for indexing, this will remain pending due to the deadline.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Architectural Design*
+* I decided to use a monolithic architecture for creating the API due to development time, primarily considering the time it would take me to debug a fragmented API across different microservices.
+* I used Spring Boot to expedite development times and due to the community's maintenance towards the project. While it's possible that Quarkus may offer superior performance, its documentation is deficient compared to Spring's.
+* I employed Bootstrap as the foundation for CSS due to its ease of use and style.
+* I chose jQuery over Vue or Angular because prototyping a front-end would take longer with the latter options, and debugging HTMX templates would be too time-consuming.
+* I selected H2DB because it's written in Java and can be interacted with directly, using Java code for creating more complex objects.
+* I utilized Hibernate as an ORM to avoid having to use as many lines of SQL.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## SWAGGER and OpenAPi
+* The Api is documented using swagger and the openapi spec, you could review it through:
+  ```html
+    http://localhost:8080/swagger-ui/index.html
+    ```
+
+## Observability and Monitoring
+* You can check the heald and the relevant information for monitoring through the 14 exposed endpoints of actuator:
+  ```html
+    http://localhost:8080/actuator
+    ```
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Flyway and the database migrating through time
+* I decided to use Flyway to maintain the consistency and correct structure of my database. You only need to add the dependency of Flyway and follow the naming conventions. For example:
+
+  Dependency
+    ```xml
+    <dependency>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-core</artifactId>
+    </dependency>
+    ```
+  Name conventions
+  ```html
+    V#_#__PREFIX_POSTFIX.SQL
+    ```
+where the first # is the major version of migration and the secon one # is for a migration revision.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Database Model
+![demol](demo.png)
+Example user:
+  ```html
+    Email: john.doe@example.com
+    Password: password
+    ```
+You could choose whichever user you want inserted in the V2__insert_users.sql
 ## Built With
 
 * [Java 21][java-url] - Runtime and programming language.
