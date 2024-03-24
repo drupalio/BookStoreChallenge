@@ -180,7 +180,7 @@ $(document).ready(function(){
         }
         });
     }
-
+    
     $(document).on('click','.list-btn',function(){
         $('#panel').empty();
         $.ajax({
@@ -193,6 +193,7 @@ $(document).ready(function(){
                 tableHTML += '<tr><td>' + book.title + '</td><td>' + book.author + '</td><td>' + book.gender.name + '</td><td><button class="loan-btn" value="' + book.id + '">Loan</button></td></tr>';
             });
             tableHTML += '</tbody></table>';
+            window.bookstore.books=response;
             $('#panel').replaceWith(tableHTML);
         },
         error: function(xhr, status, error) {
