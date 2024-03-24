@@ -3,6 +3,7 @@ package co.ximple.challenge.mappers;
 import co.ximple.challenge.ex.CustomDefaultException;
 import co.ximple.challenge.models.RatingRecord;
 import co.ximple.challenge.repository.BooksRepository;
+import co.ximple.challenge.repository.UserRepository;
 import co.ximple.challenge.repository.entities.Book;
 import co.ximple.challenge.repository.entities.Rating;
 import co.ximple.challenge.repository.entities.User;

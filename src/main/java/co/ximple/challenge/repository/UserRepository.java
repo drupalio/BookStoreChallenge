@@ -1,4 +1,4 @@
-package co.ximple.challenge.mappers;
+package co.ximple.challenge.repository;
 
 import co.ximple.challenge.repository.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

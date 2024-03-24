@@ -7,8 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import java.util.Date;
-import java.util.Optional;
+
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public record LoanRecord(
@@ -18,4 +17,9 @@ public record LoanRecord(
         @JsonProperty("book") BookRecord book,
         @JsonProperty("loanDate") Date loanDate,
         @JsonProperty("returnDate") Date returnDate
-) {}
+) {
+        @JsonProperty("id")
+        public Long getId(){
+                return this.id.get();
+        }
+}
